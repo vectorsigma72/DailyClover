@@ -1,0 +1,31 @@
+#!/bin/bash
+
+version=1
+cloverLink='https://github.com/CloverHackyColor/CloverBootloader.git'
+
+ask() {
+read -p "$1 [Y/n] " -n 1 -r
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  echo && echo "sorry can't help!"
+  exit 0
+fi
+}
+
+echo && echo clovergit v$version
+
+if [[ ! -d "$HOME"/src/CloverBootloader ]]; then
+  if [[ $1 != --travis ]]; then
+    ask 'Do you want to checkout CloverBootloader?'
+  fi
+  mkdir -p "$HOME"/src
+  cd "$HOME"/src
+  git clone --depth 1 $cloverLink
+fi
+
+if [[ $1 == --travis ]]; then
+  export TCICLOVERDIR="$HOME"/src/CloverBootloader
+  "$HOME"/src/CloverBootloader/buildme XCODE8 travis
+else
+  "$HOME"/src/CloverBootloader/buildme
+fi
+
