@@ -18,6 +18,27 @@ exportVariables() {
   echo "export variables end"
 }
 
+tag() {
+  echo "tag changes start.."
+  cd "${TRAVIS_BUILD_DIR}"
+  echo "" > .lastTag
+  if grep -q "${CLOVER_REV}-${CLOVER_HASH}" .lastTag; then
+    echo "${CLOVER_REV}-${CLOVER_HASH} already exist"
+    export TRAVIS_TAG=""
+  else
+    export TRAVIS_TAG="${CLOVER_REV}-${CLOVER_HASH}"
+#    checkTags
+    echo "${TRAVIS_TAG}" > .lastTag
+    echo "$(date)" >> .lastTag
+    echo "${TRAVIS_TAG} will be created"
+    git add .
+    git commit -am "Travis build: ${TRAVIS_TAG}"
+    git tag "${TRAVIS_TAG}"
+    git push https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git --tags
+    git fetch
+  fi
+  echo "tag changes end"
+}
 
 checkTags() {
   echo "check tags start.."
@@ -26,28 +47,15 @@ checkTags() {
 
   for tag in "${tags[@]}"
   do
-    if [[ "$tag" == "${CLOVER_REV}-*" ]]; then
+    if [[ "$tag" == "${CLOVER_REV}"-* ]]; then
       git push --delete origin $tag
       git tag -d $tag
     fi
   done
   echo "check tags end"
-}
-
-tag() {
-  echo "tag changes start.."
-  cd "${TRAVIS_BUILD_DIR}"
-  echo "$CLOVER_REV $CLOVER_HASH" > .lastTag
-  echo "$(date)" >> .lastTag
-  export TRAVIS_TAG="${CLOVER_REV}-${CLOVER_HASH}"
-  git add .
-  git commit -am "Travis build: ${TRAVIS_TAG}"
-  git tag "${TRAVIS_TAG}"
-  git push https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git --tags
-  echo "tag changes end"
+  tag
 }
 
 exportVariables
 setuser
-checkTags
 tag
