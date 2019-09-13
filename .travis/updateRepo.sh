@@ -4,8 +4,8 @@ TCICLOVERDIR="$HOME"/src/CloverBootloader
 INITDIR="$TRAVIS_BUILD_DIR"/DailyClover
 setuser() {
   cd "${TCICLOVERDIR}"
-  git config --global user.email "travis@travis-ci.com"
-  git config --global user.name "Travis CI"
+  git config --global user.email "$GIT_EMAIL"
+  git config --global user.name "$GIT_NAME"
 }
 
 exportVariables() {
