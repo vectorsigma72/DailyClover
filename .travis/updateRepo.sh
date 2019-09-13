@@ -1,7 +1,7 @@
 #!/bin/sh
 
 TCICLOVERDIR="$HOME"/src/CloverBootloader
-INITDIR="$HOME"/DailyClover
+INITDIR="$TRAVIS_BUILD_DIR"/DailyClover
 setuser() {
   cd "${TCICLOVERDIR}"
   git config --global user.email "travis@travis-ci.com"
