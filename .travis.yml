@@ -1,3 +1,5 @@
+git:
+  depth: 1
 os: osx
 osx_image: xcode11
 script: bash clovergit --travis
@@ -6,9 +8,8 @@ after_success:
 deploy:
   provider: releases
   api_key:
-    secure: $GH_TOKEN
-  file: ~/src/CloverBootloader/CloverPackage/sym/Clover*.zip
-  file: ~/src/CloverBootloader/CloverPackage/sym/CloverISO*.tar.lzma
+    secure: "$GH_TOKEN"
+  file: "~/src/CloverBootloader/CloverPackage/sym/CloverISO*.tar.lzma"
   skip_cleanup: true
   overwrite: true
   on:
@@ -16,4 +17,4 @@ deploy:
     repo: vectorsigma72/DailyClover
 env:
   global:
-    secure: RKs/4v6phKeYS8QHSWDg4E8sd65O3FppD0UgphqKg+dhzxeHqA53Pp9TAkHLk3gfThfXK50B7oIwsZzeqc+qYAhmSGHpoaK8Jhy7IMqpus7/McYIJPfdyOCTmlaDu8Ma2LZxEEKcfZNpSgdlXbnMkR1SzcDMpZfIBNYNbbt+5UUJoPx6sWllhEqTukvukwasadEzhFKRcJvZSEGY/TxhXPqcYOf2q/J8MIH+9RCtr7YacHEFBWXVYMt0ekWEQxu5uBG0+lordFup3MmGU4QrUfNhKhV1DGapOnrgbLTNYYfV1KQiCukpRPVnAikWU1D6ZRHCB/a/mstohZZCvHSloSgP17/tebRcBk2TII8JaMAVosxigmd2JonYv1jJsc5alKZL8tha+q99Gg+uG07p/R4KvlsnNkono2eu3x0oIBC7/eUwZLCKPftTas8lESndctWLwvt59dEAI3SUrWDFOHMZ5g5nzTJ9/1yqocLgxTmK1FJwhGsvDoYqZEMycOBq5hGKCzJZUyVHMCODQo4n/URGTN3UUGDQ4KD4knvwa7Wp8gAWFVgY1MxZCAJAK3Heb2ZSd0A5zfr/q6EZqFs3yotfkzG2wvd4S/9ET6kE6n+PrqnztV1255Ceg6gcw/hzOOEfLUUiyv1hHhZGbdjTdaEpvJYvGbOqookjhbydbIo=
+  - secure: cFLxHNrKvALTJqCeyS48Tmfow485hgPrkCD80poqJnn+dWQunJz7sCwjjWzTlW9wjbaIyWDR2N5eAax0TK0GRXe2jK4Cn2zCdKkqIFZaYHN7EbTtUyG2JgUuy5eCG0E9PV7/zYXx2v7NEWk7Awe/879SyhCWMYJf96srbV1A65pvCjFrA04ZpucQ6NKOSoSPqr46kuUNPCV0NXh9Pq5rTDgds22BD8XRcPI5mE73cqELFd5Vw0Ds1WjONlRAW9NZCCFVVJhb5MYjkUMVCQzV0gG8klID1M7OcfFoAeQsc4P+GMMMUF6Z49N94Qj88PAtOe/bhRLSqZRgOgDyuf1OGVwK+9IytGZyyf+hY9winsF27kZGQv6PmkAOFD72qeetcVv83POseVandGiZvFxqM/KeWaYpwK2xdqaO9f2N+JDtynoBj1lhdg4sTnpzXW/7p69qn6wYPY8APIKiiRe5O+H2er8B+58DoQuQKrKin6iUkEQJsS37samrSK66xrFnpS8ahMmHVBhTEvOzsxeU0S50VxJ/xUjV5XTNQYiUKlAh6pjb39e1TDugwr6TZerX6Pf5slFOAsShbnFZOqgJzsrMFu61aGnGEc8m8GH7JlmC2j9xThgrVsuoG/n6gj0b158l/6KBecC9QvdD1awQkQNQMSnQTWpzs4IIS7/VIGM=
