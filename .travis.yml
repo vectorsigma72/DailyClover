@@ -7,7 +7,8 @@ deploy:
   provider: releases
   api_key:
     secure: BsSzg70trVMr1zAnJVIvwebjJgAAl3Grd1e6rbuzcKEHrQmyOS8Ak9MKWT4WtA1/op0gxGP8EVpgnvdBpWNLflRz1J7TioOXkf5vWjs4uL8gdhf4UYZ0VX5000zDCZ9aqQdangZTM2evrtc70dCmQ/5HKBrWDv7NaPeri23MSfRpATORgdxE1GiFPhGIRUXOdaEWnFX8VRTjpvdL2EdETDDSW7VxdUPj3ic9452DFD4//BAevKEjJUNqodocO4q1a+utrIni39YsQKjd+ct1AGwOxNdnPkt5Qpae2pRMlcq9qjRsaHn1pDxSitNJWkVghLg1unyQjTyuTtC7I2s2qx1QKSLba+fMCELGxBl1jc5fiC0Hz60jcJdChwEe+rCkzr/AVXRZvH5bFAvzeOUas5wfPTrF/jOte0cibaSBJz5gY0kmHyK45q8wKmQ6ltgZNR7zz56FCExowBwdaMLcjDa6u4nVw0IGi9VmXUf7xIzNbDUvyTAkoagpa5cgJrlYyOTrSHQ4eM37bD9zOFVzmsYsD98JHpT5A0W2ZDSvP95ELP0S2yRhE8yU9yYPMFioflt6979bAkK2dnDcmvfgvHpVYgw1g++7P3fS61+ddcBmNhU7WDHMu1cdO027FeuZyIpec0qApjNvAJEF8QvjvXh5N/8yEs29uVFarSTBbMQ=
-  file: "~/src/CloverBootloader/CloverPackage/sym/CloverISO-*/*.iso"
+  file: ~/src/CloverBootloader/CloverPackage/sym/Clover-*.pkg
+  file: ~/src/CloverBootloader/CloverPackage/sym/CloverISO-*/*.iso
   skip_cleanup: true
   overwrite: true
   on:
