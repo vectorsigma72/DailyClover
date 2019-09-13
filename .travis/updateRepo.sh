@@ -35,7 +35,7 @@ tag() {
     git commit -am "Travis build: ${TRAVIS_TAG}"
     git tag "${TRAVIS_TAG}"
     git push https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git --tags
-    git fetch
+    git pull
   fi
   echo "tag changes end"
 }
