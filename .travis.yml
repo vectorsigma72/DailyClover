@@ -7,8 +7,8 @@ deploy:
   provider: releases
   api_key:
     secure: $GH_TOKEN
-  file: ~/src/CloverBootloader/CloverPackage/sym/Clover-*.zip
-  file: ~/src/CloverBootloader/CloverPackage/sym/CloverISO-*/*.iso
+  file: ~/src/CloverBootloader/CloverPackage/sym/Clover*.zip
+  file: ~/src/CloverBootloader/CloverPackage/sym/CloverISO*.tar.lzma
   skip_cleanup: true
   overwrite: true
   on:
