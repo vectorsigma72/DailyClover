@@ -3,6 +3,9 @@
 version=1
 cloverLink='https://github.com/CloverHackyColor/CloverBootloader.git'
 
+cd "$(dirname $0)"
+export INITDIR=$PWD
+
 ask() {
 read -p "$1 [Y/n] " -n 1 -r
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then

@@ -2,15 +2,8 @@ os: osx
 osx_image: xcode11
 script: bash clovergit --travis
 
-before_deploy:
-  # Set up git user name and tag this commit
-  - export TCIREPO=$PWD
-  - echo "repo: ${TCIREPO}"
-  - git config --local user.name vectorsigma72
-  - cd ${TCICLOVERDIR}
-  - export TRAVIS_TAG=${TRAVIS_TAG:-r$(cat vers.txt)-$(git rev-parse --short HEAD)}
-  - echo $TRAVIS_TAG > ${TCIREPO}/lastTag
-  - cd ${TCIREPO} && git tag $TRAVIS_TAG
+after_success:
+  - .travis/updateRepo.sh
 
 deploy:
   provider: releases
