@@ -32,10 +32,11 @@ tag() {
   cd "${INITDIR}"
   echo "$CLOVER_REV $CLOVER_HASH" > .lastTag
   echo "$(date)" >> .lastTag
+  export TRAVIS_TAG="${CLOVER_REV}-${CLOVER_HASH}"
   git add .
-  git commit -am "Travis build: ${CLOVER_REV}-${CLOVER_HASH}"
+  git commit -am "Travis build: ${TRAVIS_TAG}"
   git push origin master
-  git tag "${CLOVER_REV}-${CLOVER_HASH}"
+  git tag "${TRAVIS_TAG}"
 }
 
 exportVariables
