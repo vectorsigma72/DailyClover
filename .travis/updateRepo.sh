@@ -13,7 +13,7 @@ setuser() {
 exportVariables() {
   echo "export variables start.."
   cd "${TCICLOVERDIR}"
-  export CLOVER_REV="r$(cat vers.txt)"
+  export CLOVER_REV="$(cat vers.txt)"
   export CLOVER_HASH="$(git rev-parse --short HEAD)"
   echo "export variables end"
 }
