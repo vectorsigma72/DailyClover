@@ -28,17 +28,16 @@ checkTags() {
   done
 }
 
-tag() {
+commit() {
   cd "${INITDIR}"
   echo "$CLOVER_REV $CLOVER_HASH" > .lastTag
   echo "$(date)" >> .lastTag
-  git add .
-  git commit -am "Travis build: ${CLOVER_REV}-${CLOVER_HASH}"
-  git push origin master
+  git commit --message "Travis build: ${CLOVER_REV}-${CLOVER_HASH}"
   git tag "${CLOVER_REV}-${CLOVER_HASH}"
+  git push
 }
 
 exportVariables
 setuser
 checkTags
-tag
+commit
