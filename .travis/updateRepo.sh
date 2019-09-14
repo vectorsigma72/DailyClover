@@ -1,42 +1,36 @@
 #!/bin/sh
 
-TCICLOVERDIR="$HOME"/src/CloverBootloader
+TCICLOVERDIR=~/src/CloverBootloader
 
 setuser() {
-  echo "set user info start.."
+  printf "set user info start.."
   cd "${TRAVIS_BUILD_DIR}"
   git config --global user.email "$GIT_EMAIL"
   git config --global user.name "$GIT_NAME"
-  echo "set user info end"
+  printf " end\n"
 }
 
 exportVariables() {
-  echo "export variables start.."
+  printf "export variables start.."
   cd "${TCICLOVERDIR}"
   export CLOVER_REV="$(cat vers.txt)"
   export CLOVER_HASH="$(git rev-parse --short HEAD)"
-  echo "export variables end"
+  echo "$CLOVER_REV" > ~/cloverRev
+  printf " end\n"
 }
 
-tag() {
+commitTag() {
   echo "tag changes start.."
   cd "${TRAVIS_BUILD_DIR}"
-  echo "" > .lastTag
-  if grep -q "${CLOVER_REV}-${CLOVER_HASH}" .lastTag; then
-    echo "${CLOVER_REV}-${CLOVER_HASH} already exist"
-    export TRAVIS_TAG=""
-  else
-    export TRAVIS_TAG="${CLOVER_REV}-${CLOVER_HASH}"
-#    checkTags
-    echo "${TRAVIS_TAG}" > .lastTag
-    echo "$(date)" >> .lastTag
-    echo "${TRAVIS_TAG} will be created"
-    git add .
-    git commit -am "Travis build: ${TRAVIS_TAG}"
-    git tag "${TRAVIS_TAG}"
-    git push https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git --tags
-    git pull
-  fi
+  TRAVIS_TAG="${CLOVER_REV}-${CLOVER_HASH}"
+  echo "${TRAVIS_TAG}" > .lastTag
+  echo "$(date)" >> .lastTag
+  echo "${TRAVIS_TAG} will be created"
+  git add .
+  git commit -am "Travis build: ${TRAVIS_TAG} $(date)"
+  git tag "${TRAVIS_TAG}"
+  git push origin master --tags
+# git push https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git --tags
   echo "tag changes end"
 }
 
@@ -45,17 +39,20 @@ checkTags() {
   cd "${TRAVIS_BUILD_DIR}"
   local tags=($(git tag))
 
-  for tag in "${tags[@]}"
+  for t in "${tags[@]}"
   do
-    if [[ "$tag" == "${CLOVER_REV}"-* ]]; then
-      git push --delete origin $tag
-      git tag -d $tag
+    if [[ "$t" == "${CLOVER_REV}"-* ]]; then
+      echo "deleting old tag \"$t\""
+      git tag -d $t
+      git push --delete https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git $t
+
     fi
   done
   echo "check tags end"
-  tag
 }
 
 exportVariables
 setuser
-tag
+checkTags
+commitTag
+

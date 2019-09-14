@@ -4,8 +4,10 @@ os: osx
 osx_image: xcode11
 script: bash clovergit --travis
 after_success:
-- ".travis/updateRepo.sh"
+  - ".travis/updateRepo.sh"
 
+before_deploy:
+  - export CLOVER_REV=$(cat ~/cloverRev)
 
 deploy:
   provider: releases
