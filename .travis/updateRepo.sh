@@ -26,7 +26,7 @@ commitTag() {
   echo "${TRAVIS_TAG}" > .lastTag
   echo "$(date)" >> .lastTag
   echo "${TRAVIS_TAG} will be created"
-  git add .
+#  git add .
   git commit -am "Travis build: ${TRAVIS_TAG} $(date)"
   git tag "${TRAVIS_TAG}"
   git push origin master --tags
