@@ -29,8 +29,8 @@ commitTag() {
 #  git add .
   git commit -am "Travis build: ${TRAVIS_TAG} $(date)"
   git tag "${TRAVIS_TAG}"
-  git push origin master --tags
-# git push https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git --tags
+#  git push origin master --tags
+  git push https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git --tags
   echo "tag changes end"
 }
 
