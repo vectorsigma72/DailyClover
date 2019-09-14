@@ -51,7 +51,13 @@ checkTags() {
   echo "check tags end"
 }
 
+copyBuilds() {
+ cp -R "${TCICLOVERDIR/}"CloverPackage/sym/Clover_v2.5k_r${CLOVER_REV}.zip "${TRAVIS_BUILD_DIR}"/.build/
+ cp -R "${TCICLOVERDIR/}"CloverPackage/sym/CloverISO-${CLOVER_REV}.tar.lzma "${TRAVIS_BUILD_DIR}"/.build/
+}
+
 exportVariables
+copyBuilds
 setuser
 checkTags
 commitTag

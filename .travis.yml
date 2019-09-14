@@ -13,8 +13,8 @@ deploy:
   provider: releases
   api_key:
     secure: "$GH_TOKEN"
-  file: ~/src/CloverBootloader/CloverPackage/sym/Clover_v2.5k_r${CLOVER_REV}.zip
-  file: ~/src/CloverBootloader/CloverPackage/sym/CloverISO-${CLOVER_REV}.tar.lzma
+  file: .build/Clover_v2.5k_r${CLOVER_REV}.zip
+  file: .build/CloverISO-${CLOVER_REV}.tar.lzma
   skip_cleanup: true
   overwrite: true
   on:
