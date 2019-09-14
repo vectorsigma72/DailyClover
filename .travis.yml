@@ -16,13 +16,8 @@ deploy:
   skip_cleanup: true
   overwrite: true
   on:
-    tags: true
+    tags: false
     repo: vectorsigma72/DailyClover
-
-branches:
-  only:
-  - master
-  - /^\d+\.\d+\.\d+$/
 
 env:
   global:
