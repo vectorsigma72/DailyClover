@@ -13,6 +13,7 @@ before_deploy:
   - git config --global user.name "$GIT_NAME"
   - echo "${CLOVER_REV}-${CLOVER_HASH}" > .lastTag
   - echo "$(date)" >> .lastTag
+  - git add .lastTag
   - git commit -m "Travis build: ${CLOVER_REV} $(date)"
   - git tag "${CLOVER_REV}-${CLOVER_HASH}"
   - git push origin master --tags
