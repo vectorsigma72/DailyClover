@@ -19,6 +19,11 @@ deploy:
     tags: true
     repo: vectorsigma72/DailyClover
 
+branches:
+  only:
+  - master
+  - /^\d+\.\d+\.\d+$/
+
 env:
   global:
   - secure: cFLxHNrKvALTJqCeyS48Tmfow485hgPrkCD80poqJnn+dWQunJz7sCwjjWzTlW9wjbaIyWDR2N5eAax0TK0GRXe2jK4Cn2zCdKkqIFZaYHN7EbTtUyG2JgUuy5eCG0E9PV7/zYXx2v7NEWk7Awe/879SyhCWMYJf96srbV1A65pvCjFrA04ZpucQ6NKOSoSPqr46kuUNPCV0NXh9Pq5rTDgds22BD8XRcPI5mE73cqELFd5Vw0Ds1WjONlRAW9NZCCFVVJhb5MYjkUMVCQzV0gG8klID1M7OcfFoAeQsc4P+GMMMUF6Z49N94Qj88PAtOe/bhRLSqZRgOgDyuf1OGVwK+9IytGZyyf+hY9winsF27kZGQv6PmkAOFD72qeetcVv83POseVandGiZvFxqM/KeWaYpwK2xdqaO9f2N+JDtynoBj1lhdg4sTnpzXW/7p69qn6wYPY8APIKiiRe5O+H2er8B+58DoQuQKrKin6iUkEQJsS37samrSK66xrFnpS8ahMmHVBhTEvOzsxeU0S50VxJ/xUjV5XTNQYiUKlAh6pjb39e1TDugwr6TZerX6Pf5slFOAsShbnFZOqgJzsrMFu61aGnGEc8m8GH7JlmC2j9xThgrVsuoG/n6gj0b158l/6KBecC9QvdD1awQkQNQMSnQTWpzs4IIS7/VIGM=
