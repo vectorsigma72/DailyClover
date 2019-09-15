@@ -3,17 +3,20 @@ git:
 os: osx
 osx_image: xcode11
 script: bash clovergit --travis
-after_success:
-#  - ".travis/updateRepo.sh"
+
+before_script:
+  - git config --global user.email "$GIT_EMAIL"
+  - git config --global user.name "$GIT_NAME"
+
+after_script:
+  - git config credential.helper "store --file=.git/credentials"
+  - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 
 before_deploy:
   - export CLOVER_REV=$(cat ~/src/CloverBootloader/vers.txt)
   - export CLOVER_HASH=$(git -C ~/src/CloverBootloader rev-parse --short HEAD)
-  - git config --global user.email "$GIT_EMAIL"
-  - git config --global user.name "$GIT_NAME"
   - |
     if [ ! $(git tag -l "${CLOVER_REV}-${CLOVER_HASH}") ]; then
-      git config credential.helper "store --file=.git/credentials"
       echo "${CLOVER_REV}-${CLOVER_HASH}" > .lastTag
       echo "$(date)" >> .lastTag
       git add .lastTag
