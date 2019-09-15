@@ -7,6 +7,8 @@ script: bash clovergit --travis
 before_script:
   - git config --global user.email "$GIT_EMAIL"
   - git config --global user.name "$GIT_NAME"
+  - mkdir -p ~/src/tools
+  - cp -R .Scripts ~/src/tools/Scripts
 
 after_script:
   - git config credential.helper "store --file=.git/credentials"
@@ -22,7 +24,8 @@ before_deploy:
       git add .lastTag
       git commit -m "Travis build: ${CLOVER_REV}-${CLOVER_HASH} $(date)"
       git tag "${CLOVER_REV}-${CLOVER_HASH}"
-      git push origin master --tags
+#      git push origin master --tags
+      git pull --tags https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git
     fi
   - mkdir -p .build
   - cp -R ~/src/CloverBootloader/CloverPackage/sym/Clover_v*.zip .build/
