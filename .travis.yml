@@ -24,7 +24,6 @@ before_deploy:
       git add .lastTag
       git commit -m "Travis build: ${CLOVER_REV}-${CLOVER_HASH} $(date)"
       git tag "${CLOVER_REV}-${CLOVER_HASH}"
-#      git push origin master --tags
       git pull --tags https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git
     fi
   - mkdir -p .build
