@@ -15,18 +15,19 @@ before_script:
 before_deploy:
   - export CLOVER_REV=$(cat ~/src/CloverBootloader/vers.txt)
   - export CLOVER_HASH=$(git -C ~/src/CloverBootloader rev-parse --short HEAD)
+  - export TRAVIS_TAG="${CLOVER_REV}-${CLOVER_HASH}"
   - |
     git fetch
-    if [ $(git tag -l "${CLOVER_REV}-${CLOVER_HASH}") ]; then
-      git tag -d "${CLOVER_REV}-${CLOVER_HASH}"
-      git push --delete origin "${CLOVER_REV}-${CLOVER_HASH}"
+    if [ $(git tag -l "${TRAVIS_TAG}") ]; then
+      git tag -d "${TRAVIS_TAG}"
+      git push --delete origin "${TRAVIS_TAG}"
     fi
     git pull origin master
-    echo "${CLOVER_REV}-${CLOVER_HASH}" > .lastTag
+    echo "${TRAVIS_TAG}" > .lastTag
     echo "$(date)" >> .lastTag
     git add .lastTag
-    git commit -m "Travis build: ${CLOVER_REV}-${CLOVER_HASH}"
-    git tag "${CLOVER_REV}-${CLOVER_HASH}"
+    git commit -m "Travis build: ${TRAVIS_TAG}"
+    git tag "${TRAVIS_TAG}"
     git push --tags https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git
   - mkdir -p .build
   - cp -R ~/src/CloverBootloader/CloverPackage/sym/Clover_v*.zip .build/
