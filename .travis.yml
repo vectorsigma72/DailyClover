@@ -18,14 +18,18 @@ before_deploy:
   - export CLOVER_REV=$(cat ~/src/CloverBootloader/vers.txt)
   - export CLOVER_HASH=$(git -C ~/src/CloverBootloader rev-parse --short HEAD)
   - |
-    if [ ! $(git tag -l "${CLOVER_REV}-${CLOVER_HASH}") ]; then
-      echo "${CLOVER_REV}-${CLOVER_HASH}" > .lastTag
-      echo "$(date)" >> .lastTag
-      git add .lastTag
-      git commit -m "Travis build: ${CLOVER_REV}-${CLOVER_HASH} $(date)"
-      git tag "${CLOVER_REV}-${CLOVER_HASH}"
-      git pull --tags https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git
+    git fetch
+    if [ $(git tag -l "${CLOVER_REV}-${CLOVER_HASH}") ]; then
+      git tag -d "${CLOVER_REV}-${CLOVER_HASH}"
+      git push --delete origin "${CLOVER_REV}-${CLOVER_HASH}"
     fi
+    git pull origin master
+    echo "${CLOVER_REV}-${CLOVER_HASH}" > .lastTag
+    echo "$(date)" >> .lastTag
+    git add .lastTag
+    git commit -m "Travis build: ${CLOVER_REV}-${CLOVER_HASH}"
+    git tag "${CLOVER_REV}-${CLOVER_HASH}"
+    git push --tags https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git
   - mkdir -p .build
   - cp -R ~/src/CloverBootloader/CloverPackage/sym/Clover_v*.zip .build/
   - cp -R ~/src/CloverBootloader/CloverPackage/sym/CloverISO*.tar.lzma .build/
@@ -40,7 +44,7 @@ deploy:
   skip_cleanup: true
   overwrite: true
   on:
-    tags: false
+    tags: true
     repo: vectorsigma72/DailyClover
 
 env:
