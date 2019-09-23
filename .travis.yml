@@ -2,7 +2,7 @@ git:
   depth: false
 os: osx
 osx_image: xcode11
-script: travis_wait 40 bash clovergit --travis
+script: bash clovergit --travis
 
 before_script:
   - git config credential.helper "store --file=.git/credentials"
