@@ -2,32 +2,22 @@ git:
   depth: false
 os: osx
 osx_image: xcode11
-script: bash clovergit --travis
 
 before_script:
+  - mkdir -p ~/src/tools
+  - cp -R .Scripts ~/src/tools/Scripts
+
+script: bash clovergit --travis
+
+before_deploy:
   - git config credential.helper "store --file=.git/credentials"
   - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
   - git config --global user.email "$GIT_EMAIL"
   - git config --global user.name "$GIT_NAME"
-  - mkdir -p ~/src/tools
-  - cp -R .Scripts ~/src/tools/Scripts
-
-before_deploy:
   - export CLOVER_REV=$(cat ~/src/CloverBootloader/vers.txt)
   - export CLOVER_HASH=$(git -C ~/src/CloverBootloader rev-parse --short HEAD)
   - export TRAVIS_TAG="${CLOVER_REV}-${CLOVER_HASH}"
-  - |
-    if [ $(git tag -l "${TRAVIS_TAG}") ]; then
-      git tag -d "${TRAVIS_TAG}"
-      git push --delete origin "${TRAVIS_TAG}"
-    fi
-    git pull origin master
-    echo "${TRAVIS_TAG}" > .lastTag
-    echo "$(date)" >> .lastTag
-    git add .lastTag
-    git commit -m "Travis build: ${TRAVIS_TAG}"
     git tag "${TRAVIS_TAG}"
-    git push --tags https://${GIT_NAME}:${GH_TOKEN}@github.com/${GIT_NAME}/DailyClover.git
   - mkdir -p .build
   - cp -R ~/src/CloverBootloader/CloverPackage/sym/Clover_v*.zip .build/
   - cp -R ~/src/CloverBootloader/CloverPackage/sym/CloverISO*.tar.lzma .build/
@@ -42,8 +32,6 @@ deploy:
   overwrite: true
   on:
     tags: true
-    draft: false
-    repo: vectorsigma72/DailyClover
 
 env:
   global:
