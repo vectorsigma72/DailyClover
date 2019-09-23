@@ -18,9 +18,6 @@ before_deploy:
   - export CLOVER_HASH=$(git -C ~/src/CloverBootloader rev-parse --short HEAD)
   - export TRAVIS_TAG="${CLOVER_REV}-${CLOVER_HASH}"
   - git tag "${TRAVIS_TAG}"
-  - mkdir -p .build
-  - cp -R ~/src/CloverBootloader/CloverPackage/sym/Clover_v*.zip .build/
-  - cp -R ~/src/CloverBootloader/CloverPackage/sym/CloverISO*.tar.lzma .build/
 
 deploy:
   provider: releases
@@ -30,8 +27,8 @@ deploy:
   skip_cleanup: true
   api_key: "$GH_TOKEN"
   file:
-    - ".build/*.zip"
-    - ".build/*.tar.lzma"
+    - ~/src/CloverBootloader/CloverPackage/sym/Clover_v*.zip
+    - ~/src/CloverBootloader/CloverPackage/sym/CloverISO*.tar.lzma
 
   on:
     branch: master
