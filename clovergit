@@ -25,7 +25,7 @@ if [[ ! -d "$HOME"/src/CloverBootloader ]]; then
 fi
 
 if [[ $1 == --travis ]]; then
-  "$HOME"/src/CloverBootloader/buildme XCODE8 travis
+  "$HOME"/src/CloverBootloader/buildme GCC53 travis
 else
   "$HOME"/src/CloverBootloader/buildme
 fi
