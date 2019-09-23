@@ -24,14 +24,23 @@ before_deploy:
 
 deploy:
   provider: releases
+  tag_name: $TRAVIS_TAG
+  overwrite: true
+  name: $TRAVIS_TAG
+  skip_cleanup: true
   api_key: "$GH_TOKEN"
   file:
     - ".build/*.zip"
     - ".build/*.tar.lzma"
-  skip_cleanup: true
-  overwrite: true
+
   on:
-    tags: true
+    branch: master
+    repo: vectorsigma72/DailyClover
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
 
 env:
   global:
