@@ -7,7 +7,7 @@ before_script:
   - mkdir -p ~/src/tools
   - cp -R .Scripts ~/src/tools/Scripts
 
-script: travis_wait bash clovergit --travis
+script: travis_wait 50 bash clovergit --travis
 
 before_deploy:
   - git config credential.helper "store --file=.git/credentials"
