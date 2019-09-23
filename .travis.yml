@@ -17,7 +17,7 @@ before_deploy:
   - export CLOVER_REV=$(cat ~/src/CloverBootloader/vers.txt)
   - export CLOVER_HASH=$(git -C ~/src/CloverBootloader rev-parse --short HEAD)
   - export TRAVIS_TAG="${CLOVER_REV}-${CLOVER_HASH}"
-    git tag "${TRAVIS_TAG}"
+  - git tag "${TRAVIS_TAG}"
   - mkdir -p .build
   - cp -R ~/src/CloverBootloader/CloverPackage/sym/Clover_v*.zip .build/
   - cp -R ~/src/CloverBootloader/CloverPackage/sym/CloverISO*.tar.lzma .build/
