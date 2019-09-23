@@ -2,7 +2,7 @@ git:
   depth: false
 os: osx
 osx_image: xcode11
-script: bash clovergit --travis
+script: travis_wait 40 bash clovergit --travis
 
 before_script:
   - git config credential.helper "store --file=.git/credentials"
@@ -17,7 +17,6 @@ before_deploy:
   - export CLOVER_HASH=$(git -C ~/src/CloverBootloader rev-parse --short HEAD)
   - export TRAVIS_TAG="${CLOVER_REV}-${CLOVER_HASH}"
   - |
-    git fetch
     if [ $(git tag -l "${TRAVIS_TAG}") ]; then
       git tag -d "${TRAVIS_TAG}"
       git push --delete origin "${TRAVIS_TAG}"
@@ -35,8 +34,7 @@ before_deploy:
 
 deploy:
   provider: releases
-  api_key:
-    secure: "$GH_TOKEN"
+  api_key: "$GH_TOKEN"
   file:
     - ".build/*.zip"
     - ".build/*.tar.lzma"
@@ -44,6 +42,7 @@ deploy:
   overwrite: true
   on:
     tags: true
+    draft: false
     repo: vectorsigma72/DailyClover
 
 env:
